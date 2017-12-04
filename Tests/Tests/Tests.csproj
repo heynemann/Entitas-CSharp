@@ -8,7 +8,6 @@
     <RootNamespace>Tests</RootNamespace>
     <AssemblyName>Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <ReleaseVersion>1.0.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -110,6 +109,8 @@
     <Compile Include="Tests\Entitas.CodeGeneration\PostProcessors\describe_UpdateCSProjPostProcessor.cs" />
     <Compile Include="Tests\Entitas\describe_MultiReactiveSystem.cs" />
     <Compile Include="Fixtures\Systems\MultiReactiveSystemSpy.cs" />
+    <Compile Include="Fixtures\Systems\LateExecuteSystemSpy.cs" />
+    <Compile Include="Fixtures\Systems\FixedExecuteSystemSpy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

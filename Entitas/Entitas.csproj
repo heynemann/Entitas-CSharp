@@ -8,7 +8,6 @@
     <RootNamespace>Entitas</RootNamespace>
     <AssemblyName>Entitas</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <ReleaseVersion>1.0.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -97,6 +96,8 @@
     <Compile Include="Entitas\Collector\TriggerOnEventMatcherExtension.cs" />
     <Compile Include="Entitas\Collector\ICollector.cs" />
     <Compile Include="Entitas\Systems\MultiReactiveSystem.cs" />
+    <Compile Include="Entitas\Systems\Interfaces\ILateExecuteSystem.cs" />
+    <Compile Include="Entitas\Systems\Interfaces\IFixedExecuteSystem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

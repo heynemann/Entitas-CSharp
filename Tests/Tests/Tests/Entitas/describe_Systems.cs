@@ -34,6 +34,20 @@ class describe_Systems : nspec {
                 system.didExecute.should_be(1);
             };
 
+            it["executes LateExecuteSystemSpy"] = () => {
+                var system = new LateExecuteSystemSpy();
+                system.didExecute.should_be(0);
+                system.LateExecute();
+                system.didExecute.should_be(1);
+            };
+
+			it["executes FixedExecuteSystemSpy"] = () => {
+				var system = new FixedExecuteSystemSpy();
+				system.didExecute.should_be(0);
+				system.FixedExecute();
+				system.didExecute.should_be(1);
+			};
+
             it["cleans up CleanupSystemSpy"] = () => {
                 var system = new CleanupSystemSpy();
                 system.didCleanup.should_be(0);

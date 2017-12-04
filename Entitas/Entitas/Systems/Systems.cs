@@ -12,14 +12,18 @@ namespace Entitas {
 
         protected readonly List<IInitializeSystem> _initializeSystems;
         protected readonly List<IExecuteSystem> _executeSystems;
-        protected readonly List<ICleanupSystem> _cleanupSystems;
+		protected readonly List<ILateExecuteSystem> _lateExecuteSystems;
+		protected readonly List<IFixedExecuteSystem> _fixedExecuteSystems;
+		protected readonly List<ICleanupSystem> _cleanupSystems;
         protected readonly List<ITearDownSystem> _tearDownSystems;
 
         /// Creates a new Systems instance.
         public Systems() {
             _initializeSystems = new List<IInitializeSystem>();
             _executeSystems = new List<IExecuteSystem>();
-            _cleanupSystems = new List<ICleanupSystem>();
+			_lateExecuteSystems = new List<ILateExecuteSystem>();
+			_fixedExecuteSystems = new List<IFixedExecuteSystem>();
+			_cleanupSystems = new List<ICleanupSystem>();
             _tearDownSystems = new List<ITearDownSystem>();
         }
 
@@ -34,6 +38,16 @@ namespace Entitas {
             if (executeSystem != null) {
                 _executeSystems.Add(executeSystem);
             }
+
+            var lateExecuteSystem = system as ILateExecuteSystem;
+            if (lateExecuteSystem != null) {
+                _lateExecuteSystems.Add(lateExecuteSystem);
+            }
+
+			var fixedExecuteSystem = system as IFixedExecuteSystem;
+			if (fixedExecuteSystem != null) {
+				_fixedExecuteSystems.Add(fixedExecuteSystem);
+			}
 
             var cleanupSystem = system as ICleanupSystem;
             if (cleanupSystem != null) {
@@ -63,6 +77,22 @@ namespace Entitas {
                 _executeSystems[i].Execute();
             }
         }
+
+        /// Calls LateExecute() on all ILateExecuteSystem and other
+        /// nested Systems instances in the order you added them.
+        public virtual void LateExecute() {
+            for (int i = 0; i < _lateExecuteSystems.Count; i++) {
+                _lateExecuteSystems[i].LateExecute();
+            }
+        }
+
+		/// Calls FixedExecute() on all IFixedExecuteSystem and other
+		/// nested Systems instances in the order you added them.
+		public virtual void FixedExecute() {
+			for (int i = 0; i < _fixedExecuteSystems.Count; i++) {
+				_fixedExecuteSystems[i].FixedExecute();
+			}
+		}
 
         /// Calls Cleanup() on all ICleanupSystem and other
         /// nested Systems instances in the order you added them.
